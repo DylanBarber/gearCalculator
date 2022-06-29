@@ -16,7 +16,23 @@ export const usePitchDiameterFormula = (numberOfTeeth, diametralPitch, pitchDiam
 
 export const diametralPitchFormula = (numberOfTeeth, pitchDiameter) => divide(numberOfTeeth, pitchDiameter)
 
+export const useDiametralPitchFormula = (numberOfTeeth, pitchDiameter, diametralPitch, setDiametralPitch) => {
+    useEffect(() => {
+        if (numberOfTeeth !== "" && pitchDiameter !== "" && diametralPitch === "") {
+            setDiametralPitch(diametralPitchFormula(numberOfTeeth, pitchDiameter))
+        }
+    }, [numberOfTeeth, pitchDiameter, diametralPitch, setDiametralPitch])
+}
+
 export const addendumFormula = (diametralPitch) => divide(1, diametralPitch)
+
+export const useAddendumFormula = (diametralPitch, addendum, setAddendum) => {
+    useEffect(() => {
+        if (diametralPitch !== "") {
+            setAddendum(addendumFormula(diametralPitch))
+        }
+    }, [diametralPitch, addendum, setAddendum])
+}
 
 export const dedendumFormula = (diametralPitch) => divide(1.157, diametralPitch)
 
@@ -42,7 +58,7 @@ export const useNumberOfTeethFormula = (pitchDiameter, diametralPitch, outerDiam
     useEffect(() => {
     if (pitchDiameter !== "" && diametralPitch !== "" && numberOfTeeth === "") {
       setNumberOfTeeth(numberOfTeethFormula(pitchDiameter, diametralPitch));
-    } else if (pitchDiameter !== "" && outerDiameter !== "") {
+    } else if (pitchDiameter !== "" && outerDiameter !== "" && numberOfTeeth === "") {
       setNumberOfTeeth(numberOfTeethFormula2(outerDiameter, diametralPitch));
     }
   }, [pitchDiameter, diametralPitch, outerDiameter, setNumberOfTeeth]);

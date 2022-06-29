@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { numberOfTeethFormula, useNumberOfTeethFormula, usePitchDiameterFormula } from "./helpers/formulas";
+import { numberOfTeethFormula, useAddendumFormula, useDiametralPitchFormula, useNumberOfTeethFormula, usePitchDiameterFormula } from "./helpers/formulas";
 
 const App = () => {
   const [numberOfTeeth, setNumberOfTeeth] = useState("");
@@ -22,6 +22,9 @@ const App = () => {
 
   usePitchDiameterFormula(numberOfTeeth, diametralPitch, setPitchDiameter)
   useNumberOfTeethFormula(pitchDiameter, diametralPitch, outsideDiameter, numberOfTeeth, setNumberOfTeeth)
+  useDiametralPitchFormula(numberOfTeeth, pitchDiameter, diametralPitch, setDiametralPitch)
+  useAddendumFormula(diametralPitch, addendum, setAddendum)
+  
 
   return (
     <div className="App">
