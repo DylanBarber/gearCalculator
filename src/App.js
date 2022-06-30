@@ -3,28 +3,83 @@ import "./App.css";
 import { numberOfTeethFormula, useAddendumFormula, useDiametralPitchFormula, useNumberOfTeethFormula, usePitchDiameterFormula } from "./helpers/formulas";
 
 const App = () => {
-  const [numberOfTeeth, setNumberOfTeeth] = useState("");
-  const [pitchDiameter, setPitchDiameter] = useState("");
-  const [diametralPitch, setDiametralPitch] = useState("");
-  const [addendum, setAddendum] = useState("");
-  const [dedendum, setDedendum] = useState("");
-  const [outsideDiameter, setOutsideDiameter] = useState("");
-  const [rootDiameter, setRootDiameter] = useState("");
-  const [baseCircle, setBaseCircle] = useState("");
-  const [circularPitch, setCircularPitch] = useState("");
-  const [circularThickness, setCircularThickness] = useState("");
 
-  // useEffect(() => {
-  //   if (pitchDiameter !== "" && diametralPitch !== "") {
-  //     setNumberOfTeeth(numberOfTeethFormula(pitchDiameter, diametralPitch));
-  //   }
-  // }, [pitchDiameter, diametralPitch]);
+  const [formState, setFormState] = useState({
+    numberOfTeeth: {
+      touched: false,
+      value: ''
+    },
+    pitchDiameter: {
+      touched: false,
+      value: ''
+    },
+    diametralPitch: {
+      touched: false,
+      value: ''
+    },
+    addendum: {
+      touched: false,
+      value: ''
+    },
+    dedendum: {
+      touched: false,
+      value: ''
+    },
+    outsideDiameter: {
+      touched: false,
+      value: ''
+    },
+    rootDiameter: {
+      touched: false,
+      value: ''
+    },
+    baseCircle: {
+      touched: false,
+      value: ''
+    },
+    circularPitch: {
+      touched: false,
+      value: ''
+    },
+    circularThickness: {
+      touched: false,
+      value: ''
+    },
+  })
 
-  usePitchDiameterFormula(numberOfTeeth, diametralPitch, setPitchDiameter)
-  useNumberOfTeethFormula(pitchDiameter, diametralPitch, outsideDiameter, numberOfTeeth, setNumberOfTeeth)
-  useDiametralPitchFormula(numberOfTeeth, pitchDiameter, diametralPitch, setDiametralPitch)
-  useAddendumFormula(diametralPitch, addendum, setAddendum)
-  
+  const calculate = e => {
+    e.preventDefault()
+    console.log(formState)
+
+    // const touchedValues = {}
+    // Object.keys(formState).map((value) => {
+
+    // })
+    console.log(calculate.arguments)
+  }
+
+  const onChangeHandler = (e, valueName) => {
+
+    const updatedFormState = JSON.parse(JSON.stringify(formState))
+
+    if (e.target.value === '') {
+
+      // I know this deep copy trick is hacky, I'll find a better way.....eventually ;)
+      updatedFormState[valueName] = {
+        touched: false,
+        value: e.target.value
+      }
+      return setFormState(updatedFormState)
+    }
+
+    updatedFormState[valueName] = {
+      touched: true,
+      value: e.target.value
+    }
+
+    setFormState(updatedFormState)
+
+  }
 
   return (
     <div className="App">
@@ -32,63 +87,65 @@ const App = () => {
         <h1>Gear Calculator I Guess</h1>
         <label>Number of teeth</label>
         <input
-          value={numberOfTeeth}
-          onChange={(e) => setNumberOfTeeth(e.target.value)}
+          value={formState.numberOfTeeth.value}
+          onChange={(e) => onChangeHandler(e, 'numberOfTeeth')}
         ></input>
 
         <label>Pitch diameter</label>
         <input
-          value={pitchDiameter}
-          onChange={(e) => setPitchDiameter(e.target.value)}
+          value={formState.pitchDiameter.value}
+          onChange={(e) => onChangeHandler(e, 'pitchDiameter')}
         ></input>
 
         <label>Diametral pitch</label>
         <input
-          value={diametralPitch}
-          onChange={(e) => setDiametralPitch(e.target.value)}
+          value={formState.diametralPitch.value}
+          onChange={(e) => onChangeHandler(e, 'diametralPitch')}
         ></input>
 
         <label>Addendum</label>
         <input
-          value={addendum}
-          onChange={(e) => setAddendum(e.target.value)}
+          value={formState.addendum.value}
+          onChange={(e) => onChangeHandler(e, 'addendum')}
         ></input>
 
         <label>Dedendum</label>
         <input
-          value={dedendum}
-          onChange={(e) => setDedendum(e.target.value)}
+          value={formState.dedendum.value}
+          onChange={(e) => onChangeHandler(e, 'dedendum')}
         ></input>
 
         <label>Outside diameter</label>
         <input
-          value={outsideDiameter}
-          onChange={(e) => setOutsideDiameter(e.target.value)}
+          value={formState.outsideDiameter.value}
+          onChange={(e) => onChangeHandler(e, 'outsideDiameter')}
         ></input>
 
         <label>Root diameter</label>
         <input
-          value={rootDiameter}
-          onChange={(e) => setRootDiameter(e.target.value)}
+          value={formState.rootDiameter.value}
+          onChange={(e) => onChangeHandler(e, 'rootDiameter')}
         ></input>
 
         <label>Base circle</label>
         <input
-          value={baseCircle}
-          onChange={(e) => setBaseCircle(e.target.value)}
+          value={formState.baseCircle.value}
+          onChange={(e) => onChangeHandler(e, 'baseCircle')}
         ></input>
 
         <label>Circular pitch</label>
         <input
-          value={circularPitch}
-          onChange={(e) => setCircularPitch(e.target.value)}
+          value={formState.circularPitch.value}
+          onChange={(e) => onChangeHandler(e, 'circularPitch')}
         ></input>
 
         <label>Circular thickness</label>
         <input
-          value={circularThickness}
-          onChange={(e) => setCircularThickness(e.target.value)}
+          value={formState.circularThickness.value}
+          onChange={(e) => onChangeHandler(e, 'circularThickness')}
         ></input>
+
+        <button type='submit' onClick={calculate}>Calculate</button>
       </div>
     </div>
   );
