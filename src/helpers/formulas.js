@@ -23,3 +23,4 @@ export const numberOfTeethFormula2 = (outerDiameter, diametralPitch) => add(mult
 
 
 // Number of teeth and outer diameter are required. Then we calculate diametral pitch, then pitch diameter, then everything
+// ORRRR, if number of teeth is unknown (Like a child gear meshing to a parent), diametral pitch (from the parent gear) and outer diameter are required
